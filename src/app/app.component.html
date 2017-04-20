@@ -1,4 +1,19 @@
+<header>
+    <h2>{{title}}</h2>
+    <!--<img src="../../public/images/angular.png">-->
+</header>
 <main>
-    <h1>Hello from Angular App with Webpack</h1>
-    <img src="../../public/images/angular.png">
+    <section class="todo-list" *ngIf="list.length">
+        <div class="todo-item" *ngFor="let item of list" [class.completed]="item.completed">
+            <button class="checkbox icon" (click)="toggle(item)">
+                <i class="material-icons" [innerText]="item.completed ? 'check_box' : 'check_box_outline_blank'"></i>
+            </button>
+            <span class="title">{{item.name}}</span>
+            <div class="actions">
+                <button class="delete icon">
+                    <i class="material-icons" (click)="delete(item)">delete</i>
+                </button>
+            </div>
+        </div>
+    </section>
 </main>
