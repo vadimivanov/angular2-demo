@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import '../../../public/css/styles.css';
-
+import { TodoService } from '../shared/todo.service';
 
 @Component({
     selector: 'todo-form',
@@ -9,9 +9,11 @@ import '../../../public/css/styles.css';
 })
 export class FormComponent {
     
-    newTodoTitle: string = '';
+    title: string = '';
+    
+    constructor(private todoService: TodoService) {}
 
-    create() {
-        
+    onSubmit() {
+        this.todoService.createTodo(this.title);
     }
 }

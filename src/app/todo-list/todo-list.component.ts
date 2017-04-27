@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import '../../../public/css/styles.css';
 
 import { Todo } from '../shared/Todo';
+import { TodoService } from '../shared/todo.service';
 
 const list: Todo[] = [
     {
@@ -28,5 +29,21 @@ const list: Todo[] = [
     styleUrls: ['./todo-list.component.css']
 })
 export class ListComponent {
-    list: Todo[] = list;
+    list: Todo[];
+
+    constructor(private todoService: TodoService) {
+        this.list = [];
+    }
+
+    ngOnInit() {
+        this.todoService.getList().then(list => this.list = list);
+    }
+
+    delete(todo: Todo) {
+        this.todoService.deleteTodo(todo);
+    }
+
+    toggle(todo: Todo) {
+        this.todoService.toggleTodo(todo);
+    }
 }

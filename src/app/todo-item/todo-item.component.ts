@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import '../../../public/css/styles.css';
 import { Todo } from '../shared/Todo';
 
@@ -8,5 +8,16 @@ import { Todo } from '../shared/Todo';
     styleUrls: ['./todo-item.component.css']
 })
 export class ItemComponent {
-    item: Todo = new Todo('task');
+    @Input() todo: Todo;
+    @Output() delete = new EventEmitter();
+    @Output() toggle = new EventEmitter();
+
+    onToggle() {
+        this.toggle.emit(this.todo);
+
+    }
+
+    onDelete() {
+        this.delete.emit(this.todo);
+    }
 }
