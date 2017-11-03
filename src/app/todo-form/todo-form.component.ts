@@ -10,6 +10,7 @@ import { TodoService } from '../shared/todo.service';
 export class FormComponent {
     
     title: string = '';
+    titleNew: string = '';
     
     constructor(private todoService: TodoService) {}
 
