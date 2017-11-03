@@ -4,25 +4,6 @@ import '../../../public/css/styles.css';
 import { Todo } from '../shared/Todo';
 import { TodoService } from '../shared/todo.service';
 
-const list: Todo[] = [
-    {
-        title:'task 1',
-        completed: true
-    },
-    {
-        title:'task 2',
-        completed: true
-    },
-    {
-        title:'task 3',
-        completed: false
-    },
-    {
-        title:'task 4',
-        completed: false
-    }
-
-];
 @Component({
     selector: 'todo-list',
     templateUrl: './todo-list.component.html',
@@ -36,14 +17,22 @@ export class ListComponent {
     }
 
     ngOnInit() {
-        this.todoService.getList().then(list => this.list = list);
+        this.todoService.getList().subscribe(list => this.list = list);
     }
 
     delete(todo: Todo) {
-        this.todoService.deleteTodo(todo);
+        this.todoService.deleteTodo(todo).subscribe(list => {
+            let index = this.list.indexOf(todo);
+
+            if (index > -1) {
+                this.list.splice(index, 1);
+            }   
+        });
     }
 
     toggle(todo: Todo) {
-        this.todoService.toggleTodo(todo);
+        this.todoService.toggleTodo(todo).subscribe(res => {
+            todo.completed = !todo.completed
+        });
     }
 }
